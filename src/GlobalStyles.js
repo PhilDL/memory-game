@@ -81,7 +81,7 @@ html, body, #root {
   --color-primary: hsl(37, 98%, 54%);
   --color-primary-hover: hsla(36, 100%, 65%, 1);
   --color-white: hsl(0, 0%, 99%);
-  --color-gray-100: hsl(0, 0%, 95%);
+  --color-gray-100: hsl(203, 25%, 90%);
   --color-gray-blue-100: hsl(203, 28%, 79%);
   --color-gray-blue-300: hsl(203, 22%, 55%);
   --color-gray-blue-500: hsl(205, 37%, 55%);

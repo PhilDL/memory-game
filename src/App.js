@@ -17,12 +17,14 @@ function App() {
       },
     });
   };
+  let showSettings =
+    !gameCtx.gameState.gameState.started && !gameCtx.gameState.gameState.won;
   return (
-    <AppBackground gameStarted={gameCtx.gameState.gameState.started}>
-      {!gameCtx.gameState.gameState.started && (
+    <AppBackground gameStarted={!showSettings}>
+      {showSettings && (
         <GameSettingsPanel onGameStartHandler={onGameStartHandler} />
       )}
-      {gameCtx.gameState.gameState.started && <GameBoard />}
+      {!showSettings && <GameBoard />}
     </AppBackground>
   );
 }

@@ -6,6 +6,7 @@ const initialState = {
     started: false,
     piecesFlipped: 0,
     moves: 0,
+    won: false,
   },
   config: {
     gridSize: 4,
@@ -25,6 +26,7 @@ const gameReducer = (state, action) => {
         started: true,
         piecesFlipped: 0,
         moves: 0,
+        won: false,
       },
       config: config,
     };
@@ -44,6 +46,7 @@ const gameReducer = (state, action) => {
         started: true,
         piecesFlipped: piecesFlipped,
         moves: state.gameState.moves,
+        won: state.gameState.won,
       },
       config: state.config,
     };
@@ -71,6 +74,7 @@ const gameReducer = (state, action) => {
           started: false,
           piecesFlipped: state.gameState.piecesFlipped,
           moves: moves,
+          won: true,
         },
         config: state.config,
       };
@@ -81,13 +85,14 @@ const gameReducer = (state, action) => {
         started: true,
         piecesFlipped: state.gameState.piecesFlipped,
         moves: moves,
+        won: false,
       },
       config: state.config,
     };
   }
   return {
     gameBoard: [],
-    gameState: { started: false, piecesFlipped: 0, moves: 0 },
+    gameState: { started: false, piecesFlipped: 0, moves: 0, won: false },
     config: {
       gridSize: 4,
       nbOfPlayers: 1,
@@ -99,7 +104,7 @@ const gameReducer = (state, action) => {
 const GameContextProvider = ({ children }) => {
   const [gameState, dispatchGameState] = useReducer(gameReducer, {
     gameBoard: [],
-    gameState: { started: false, piecesFlipped: 0, moves: 0 },
+    gameState: { started: false, piecesFlipped: 0, moves: 0, won: false },
     config: {
       gridSize: 4,
       nbOfPlayers: 1,

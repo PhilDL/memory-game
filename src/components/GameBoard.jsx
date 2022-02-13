@@ -1,15 +1,24 @@
 import styled from "styled-components/macro";
 import React, { useContext, useEffect, useState } from "react";
-import UnstyledButton from "./UnstyledButton";
 import GamePiece from "./GamePiece";
 import GameContext from "../store/game-context";
 import PrimaryButton from "./ui/PrimaryButton";
 import SecondaryButton from "./ui/SecondaryButton";
+import EndScreen from "./EndScreen";
 
 const GameBoard = () => {
   const gameCtx = useContext(GameContext);
   const [seconds, setSeconds] = useState(0);
+  const [showEndScreen, setShowEndscreen] = useState(false);
   let started = gameCtx.gameState.gameState.started;
+
+  useEffect(() => {
+    console.log("is won ?");
+    if (gameCtx.gameState.gameState.won === false) {
+      return;
+    }
+    setShowEndscreen(true);
+  }, [gameCtx.gameState.gameState.won]);
 
   useEffect(() => {
     if (gameCtx.gameState.gameState.piecesFlipped <= 0) {
@@ -50,14 +59,23 @@ const GameBoard = () => {
   };
 
   const restartGameHandler = () => {
-    console.log("restartGameHandler");
+    setShowEndscreen(false);
     gameCtx.dispatchGameState({
       type: "START",
       payload: gameCtx.gameState.config,
     });
+    setSeconds(0);
   };
 
   const newGameHandler = () => {
+    setShowEndscreen(false);
+    gameCtx.dispatchGameState({
+      type: "END_GAME",
+    });
+  };
+
+  const dismissEndScreen = () => {
+    setShowEndscreen(false);
     gameCtx.dispatchGameState({
       type: "END_GAME",
     });
@@ -96,6 +114,14 @@ const GameBoard = () => {
           <InfoValue>{gameCtx.gameState.gameState.moves}</InfoValue>
         </InfoBox>
       </Footer>
+      <EndScreen
+        moves={gameCtx.gameState.gameState.moves}
+        timeElapsed={timeElapsed}
+        isOpen={showEndScreen}
+        onDismiss={dismissEndScreen}
+        onRestart={restartGameHandler}
+        onNewgame={newGameHandler}
+      />
     </Wrapper>
   );
 };
