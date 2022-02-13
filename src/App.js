@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import styled from "styled-components/macro";
+import GameBoard from "./components/GameBoard";
+import GameSettingsPanel from "./components/GameSettingsPanel";
+import GameContext from "./store/game-context";
 
 function App() {
+  const gameCtx = useContext(GameContext);
+
+  const onGameStartHandler = ({ theme, nbOfPlayers, gridSize }) => {
+    gameCtx.dispatchGameState({
+      type: "START",
+      payload: {
+        theme: theme,
+        nbOfPlayers: +nbOfPlayers,
+        gridSize: +gridSize,
+      },
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppBackground gameStarted={gameCtx.gameState.gameState.started}>
+      {!gameCtx.gameState.gameState.started && (
+        <GameSettingsPanel onGameStartHandler={onGameStartHandler} />
+      )}
+      {gameCtx.gameState.gameState.started && <GameBoard />}
+    </AppBackground>
   );
 }
 
+const AppBackground = styled.div`
+  background-color: ${(p) =>
+    p.gameStarted ? "var(--color-white)" : "var(--color-gray-blue-900)"};
+  height: 100%;
+`;
 export default App;
