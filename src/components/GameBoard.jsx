@@ -1,7 +1,7 @@
 import styled from "styled-components/macro";
 import React, { useContext, useEffect, useState } from "react";
 import GamePiece from "./GamePiece";
-import GameContext from "../store/game-context";
+import GameContext, { Started, Ended, NotStarted } from "../store/game-context";
 import PrimaryButton from "./ui/PrimaryButton";
 import SecondaryButton from "./ui/SecondaryButton";
 import EndScreen from "./EndScreen";
@@ -10,15 +10,14 @@ const GameBoard = () => {
   const gameCtx = useContext(GameContext);
   const [seconds, setSeconds] = useState(0);
   const [showEndScreen, setShowEndscreen] = useState(false);
-  let started = gameCtx.gameState.gameState.started;
+  let started = gameCtx.gameState.gameState.status === Started;
 
   useEffect(() => {
-    console.log("is won ?");
-    if (gameCtx.gameState.gameState.won === false) {
+    if (gameCtx.gameState.gameState.status !== Ended) {
       return;
     }
     setShowEndscreen(true);
-  }, [gameCtx.gameState.gameState.won]);
+  }, [gameCtx.gameState.gameState.status]);
 
   useEffect(() => {
     if (gameCtx.gameState.gameState.piecesFlipped <= 0) {

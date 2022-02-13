@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components/macro";
 import GameBoard from "./components/GameBoard";
 import GameSettingsPanel from "./components/GameSettingsPanel";
-import GameContext from "./store/game-context";
+import GameContext, { Started, Ended, NotStarted } from "./store/game-context";
 
 function App() {
   const gameCtx = useContext(GameContext);
@@ -17,14 +17,13 @@ function App() {
       },
     });
   };
-  let showSettings =
-    !gameCtx.gameState.gameState.started && !gameCtx.gameState.gameState.won;
+  let gameStatus = gameCtx.gameState.gameState.status;
   return (
-    <AppBackground gameStarted={!showSettings}>
-      {showSettings && (
+    <AppBackground gameStarted={gameStatus === Started || gameStatus === Ended}>
+      {gameStatus === NotStarted && (
         <GameSettingsPanel onGameStartHandler={onGameStartHandler} />
       )}
-      {!showSettings && <GameBoard />}
+      {(gameStatus === Started || gameStatus === Ended) && <GameBoard />}
     </AppBackground>
   );
 }

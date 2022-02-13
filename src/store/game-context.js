@@ -1,12 +1,15 @@
 import { createContext, useReducer } from "react";
 import { createGamePieces } from "../gameData";
+export const NotStarted = Symbol("notStarted");
+export const Started = Symbol("started");
+export const Ended = Symbol("ended");
+
 const initialState = {
   gameBoard: [],
   gameState: {
-    started: false,
+    status: NotStarted,
     piecesFlipped: 0,
     moves: 0,
-    won: false,
   },
   config: {
     gridSize: 4,
@@ -23,10 +26,9 @@ const gameReducer = (state, action) => {
     return {
       gameBoard: gameBoard,
       gameState: {
-        started: true,
+        status: Started,
         piecesFlipped: 0,
         moves: 0,
-        won: false,
       },
       config: config,
     };
@@ -43,10 +45,9 @@ const gameReducer = (state, action) => {
     return {
       gameBoard: gameBoard,
       gameState: {
-        started: true,
+        status: Started,
         piecesFlipped: piecesFlipped,
         moves: state.gameState.moves,
-        won: state.gameState.won,
       },
       config: state.config,
     };
@@ -71,10 +72,9 @@ const gameReducer = (state, action) => {
       return {
         gameBoard: gameBoard,
         gameState: {
-          started: false,
+          status: Ended,
           piecesFlipped: state.gameState.piecesFlipped,
           moves: moves,
-          won: true,
         },
         config: state.config,
       };
@@ -82,17 +82,20 @@ const gameReducer = (state, action) => {
     return {
       gameBoard: gameBoard,
       gameState: {
-        started: true,
+        status: Started,
         piecesFlipped: state.gameState.piecesFlipped,
         moves: moves,
-        won: false,
       },
       config: state.config,
     };
   }
   return {
     gameBoard: [],
-    gameState: { started: false, piecesFlipped: 0, moves: 0, won: false },
+    gameState: {
+      piecesFlipped: 0,
+      moves: 0,
+      status: NotStarted,
+    },
     config: {
       gridSize: 4,
       nbOfPlayers: 1,
@@ -104,7 +107,11 @@ const gameReducer = (state, action) => {
 const GameContextProvider = ({ children }) => {
   const [gameState, dispatchGameState] = useReducer(gameReducer, {
     gameBoard: [],
-    gameState: { started: false, piecesFlipped: 0, moves: 0, won: false },
+    gameState: {
+      piecesFlipped: 0,
+      moves: 0,
+      status: NotStarted,
+    },
     config: {
       gridSize: 4,
       nbOfPlayers: 1,
