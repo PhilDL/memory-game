@@ -1,3 +1,4 @@
+import structuredClone from "@ungap/structured-clone";
 import { createContext, useReducer } from "react";
 import { createGamePieces, createPlayers } from "../gameData";
 export const NotStarted = Symbol("notStarted");
