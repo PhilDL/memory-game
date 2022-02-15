@@ -1,10 +1,12 @@
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components/macro";
 import GameContext from "../store/game-context";
+import { useFocusRing } from "@react-aria/focus";
 import { useRadioGroup, useRadio } from "@react-aria/radio";
 import { useRadioGroupState } from "@react-stately/radio";
-import UnstyledButton from "./UnstyledButton";
-import VisuallyHidden from "./VisuallyHidden";
+import PrimaryButton from "./ui/PrimaryButton";
+import VisuallyHidden from "./ui/VisuallyHidden";
+import { QUERIES } from "../constants";
 
 let RadioContext = React.createContext(null);
 
@@ -28,11 +30,12 @@ function Radio(props) {
   let ref = useRef(null);
   let { inputProps } = useRadio(props, state, ref);
   let isSelected = state.selectedValue === props.value;
+  let { isFocusVisible, focusProps } = useFocusRing();
 
   return (
-    <SettingOptionLabel isSelected={isSelected}>
+    <SettingOptionLabel isSelected={isSelected} isFocusVisible={isFocusVisible}>
       <VisuallyHidden>
-        <input {...inputProps} ref={ref} />
+        <input {...inputProps} {...focusProps} ref={ref} />
       </VisuallyHidden>
       {children}
     </SettingOptionLabel>
@@ -98,12 +101,16 @@ const GameSettingsPanel = ({ onGameStartHandler }) => {
 };
 
 const Main = styled.main`
-  max-width: 654px;
+  max-width: 702px;
   margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 78px;
+  gap: 45px;
+  @media ${QUERIES.tabletAndUp} {
+    gap: 78px;
+  }
+  padding: 24px;
 `;
 const GameTitle = styled.h1`
   font-size: var(--font-size-h1);
@@ -114,59 +121,63 @@ const GameTitle = styled.h1`
 
 const GameSettingsForm = styled.form`
   background-color: var(--color-white);
-  min-height: 500px;
   border-radius: var(--radius-size-xl);
-  padding: 46px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 33px;
-  height: 100%;
+  padding: 24px;
+  gap: 24px;
+  @media ${QUERIES.tabletAndUp} {
+    gap: 32px;
+    padding: 46px;
+  }
 `;
 
-const SettingGroup = styled.div``;
-const SettingLabel = styled.span`
+const SettingGroup = styled.fieldset``;
+const SettingLabel = styled.legend`
   font-weight: 700;
   display: block;
   color: var(--color-gray-blue-300);
+  margin-bottom: 11px;
 `;
-const SettingValues = styled.div``;
 
-const StartGameButton = styled(UnstyledButton)`
-  margin: auto;
-  width: 100%;
+const StartGameButton = styled(PrimaryButton)`
   height: 50px;
-  border-radius: var(--radius-size-xl);
-  background-color: var(--color-primary);
-  color: white;
-  text-align: center;
   font-weight: 700;
   font-size: 1.2rem;
+  margin-top: 8px;
 `;
 
 const SettingOptionLabel = styled.label`
   display: inline-block;
   font-weight: 700;
   color: var(--color-white);
-  font-size: var(--font-size-h3);
   background-color: var(
     --color-gray-blue-${(p) => (p.isSelected ? "900" : "300")}
   );
   padding: 10px;
   flex: 1;
-  border-radius: var(--radius-size);
+  border-radius: var(--radius-size-button);
   text-align: center;
   cursor: pointer;
+  @media ${QUERIES.tabletAndUp} {
+    font-size: var(--font-size-h3);
+  }
   &:hover {
     background-color: var(
       --color-gray-blue-${(p) => (p.isSelected ? "900" : "500")}
     );
   }
+  outline: ${(p) =>
+    p.isFocusVisible ? "2px solid var(--color-primary)" : "none"};
 `;
 
 const SettingOptionValues = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 30px;
+  gap: 11px;
+  @media ${QUERIES.tabletAndUp} {
+    gap: 30px;
+  }
 `;
 export default GameSettingsPanel;

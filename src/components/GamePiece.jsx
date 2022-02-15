@@ -1,8 +1,8 @@
 import styled from "styled-components/macro";
-import React, { useContext, useEffect } from "react";
 import { PIECES } from "../gameData";
-import UnstyledButton from "./UnstyledButton";
+import UnstyledButton from "./ui/UnstyledButton";
 import { motion, AnimatePresence } from "framer-motion";
+import { BREAKPOINTS } from "../constants";
 
 const GamePiece = ({ piece, config, onFlipPiece }) => {
   const { flipped, matched, id } = piece;
@@ -23,6 +23,7 @@ const GamePiece = ({ piece, config, onFlipPiece }) => {
       matched={matched}
       flipped={flipped}
       gridSize={gridSize}
+      theme={theme}
     >
       <AnimatePresence initial={false}>
         {flipped || matched ? (
@@ -31,7 +32,7 @@ const GamePiece = ({ piece, config, onFlipPiece }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
           >
-            <PieceIcon name={piece.name} size={gridSize === 4 ? 56 : 40} />
+            <PieceIcon name={piece.name} size={"auto"} />
           </motion.span>
         ) : null}
       </AnimatePresence>
@@ -53,6 +54,10 @@ const ButtonWrapper = styled(UnstyledButton)`
       ? "var(--color-primary)"
       : "var(--color-gray-blue-900)"};
   color: var(--color-white);
+  padding: ${(p) => (p.theme === "icons" ? "30%" : null)};
+  & svg {
+    display: inherit;
+  }
 `;
 
 const PieceIconNumber = styled.span`

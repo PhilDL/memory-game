@@ -74,3 +74,16 @@ export const createGamePieces = (gridSize = 6, theme = "icons") => {
   });
   return gamePieces;
 };
+
+export const createPlayers = (nbOfPlayers) => {
+  let players = [];
+  for (let i = 1; i <= nbOfPlayers; i++) {
+    players.push({
+      id: i,
+      moves: 0,
+      matchedPairs: 0,
+      winner: false,
+    });
+  }
+  return players;
+};

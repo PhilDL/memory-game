@@ -1,15 +1,19 @@
 import styled from "styled-components/macro";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GamePiece from "./GamePiece";
-import GameContext, { Started, Ended, NotStarted } from "../store/game-context";
+import GameBoardFooter from "./GameBoardFooter";
+import GameContext, { Started, Ended } from "../store/game-context";
 import PrimaryButton from "./ui/PrimaryButton";
 import SecondaryButton from "./ui/SecondaryButton";
 import EndScreen from "./EndScreen";
+import MobileMenu from "./MobileMenu";
+import { QUERIES } from "../constants";
 
 const GameBoard = () => {
   const gameCtx = useContext(GameContext);
   const [seconds, setSeconds] = useState(0);
   const [showEndScreen, setShowEndscreen] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   let started = gameCtx.gameState.gameState.status === Started;
 
   useEffect(() => {
@@ -31,7 +35,7 @@ const GameBoard = () => {
     return () => {
       clearTimeout(checkGameStateTimeoutIdentifier);
     };
-  }, [gameCtx.gameState.gameState.piecesFlipped]);
+  }, [gameCtx.gameState.gameState.piecesFlipped, gameCtx.dispatchGameState]);
 
   useEffect(() => {
     let interval = null;
@@ -59,6 +63,7 @@ const GameBoard = () => {
 
   const restartGameHandler = () => {
     setShowEndscreen(false);
+    setShowMobileMenu(false);
     gameCtx.dispatchGameState({
       type: "START",
       payload: gameCtx.gameState.config,
@@ -68,6 +73,7 @@ const GameBoard = () => {
 
   const newGameHandler = () => {
     setShowEndscreen(false);
+    setShowMobileMenu(false);
     gameCtx.dispatchGameState({
       type: "END_GAME",
     });
@@ -75,6 +81,7 @@ const GameBoard = () => {
 
   const dismissEndScreen = () => {
     setShowEndscreen(false);
+    setShowMobileMenu(false);
     gameCtx.dispatchGameState({
       type: "END_GAME",
     });
@@ -87,8 +94,9 @@ const GameBoard = () => {
       <Header>
         <Logo>memory</Logo>
         <Navigation>
-          <PrimaryButton onClick={restartGameHandler}>Restart</PrimaryButton>
-          <SecondaryButton onClick={newGameHandler}>New Game</SecondaryButton>
+          <RestartButton onClick={restartGameHandler}>Restart</RestartButton>
+          <NewGameButton onClick={newGameHandler}>New Game</NewGameButton>
+          <MenuButton onClick={() => setShowMobileMenu(true)}>Menu</MenuButton>
         </Navigation>
       </Header>
       <Main>
@@ -103,21 +111,24 @@ const GameBoard = () => {
           ))}
         </GameBoardWrapper>
       </Main>
-      <Footer>
-        <InfoBox>
-          <InfoLabel>Time</InfoLabel>
-          <InfoValue>{timeElapsed}</InfoValue>
-        </InfoBox>
-        <InfoBox>
-          <InfoLabel>Moves</InfoLabel>
-          <InfoValue>{gameCtx.gameState.gameState.moves}</InfoValue>
-        </InfoBox>
-      </Footer>
+      <GameBoardFooter
+        playersScore={gameCtx.gameState.playersScore}
+        currentPlayerId={gameCtx.gameState.currentPlayerId}
+        totalMoves={gameCtx.gameState.gameState.moves}
+        timeElapsed={timeElapsed}
+      />
       <EndScreen
         moves={gameCtx.gameState.gameState.moves}
         timeElapsed={timeElapsed}
         isOpen={showEndScreen}
         onDismiss={dismissEndScreen}
+        onRestart={restartGameHandler}
+        onNewgame={newGameHandler}
+        playersScore={gameCtx.gameState.playersScore}
+      />
+      <MobileMenu
+        isOpen={showMobileMenu}
+        onDismiss={() => setShowMobileMenu(false)}
         onRestart={restartGameHandler}
         onNewgame={newGameHandler}
       />
@@ -133,11 +144,18 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 32px;
   height: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 24px;
 `;
 
 const Main = styled.main`
-  width: 600px;
+  width: auto;
   margin: auto;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Header = styled.header`
@@ -159,6 +177,26 @@ const Navigation = styled.nav`
   gap: 16px;
 `;
 
+const RestartButton = styled(PrimaryButton)`
+  display: none;
+  @media ${QUERIES.tabletAndUp} {
+    display: revert;
+  }
+`;
+
+const NewGameButton = styled(SecondaryButton)`
+  display: none;
+  @media ${QUERIES.tabletAndUp} {
+    display: revert;
+  }
+`;
+
+const MenuButton = styled(PrimaryButton)`
+  @media ${QUERIES.tabletAndUp} {
+    display: none;
+  }
+`;
+
 const GameBoardWrapper = styled.section`
   display: grid;
   grid-template-columns: var(--gameboard-${(p) => p.gridSize}-layout);
@@ -167,31 +205,4 @@ const GameBoardWrapper = styled.section`
   margin: auto;
 `;
 
-const Footer = styled.footer`
-  display: flex;
-  gap: 30px;
-  justify-content: center;
-  flex: 1;
-`;
-
-const InfoBox = styled.div`
-  background-color: var(--color-gray-blue-100);
-  color: var(--color-gray-blue-900);
-  font-weight: 700;
-  border-radius: 10px;
-  padding: 12px 21px;
-  display: flex;
-  justify-content: space-between;
-  min-width: 255px;
-  height: min-content;
-  align-items: center;
-`;
-
-const InfoLabel = styled.span`
-  color: var(--color-gray-blue-300);
-  font-size: 1rem;
-`;
-const InfoValue = styled.span`
-  font-size: var(--font-size-h2);
-`;
 export default GameBoard;

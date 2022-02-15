@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components/macro";
-
+import { QUERIES } from "./constants";
 const GlobalStyles = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
@@ -90,14 +90,23 @@ html, body, #root {
   --font-size-h1: ${48 / 16}rem;
   --font-size-h2: ${32 / 16}rem;
   --font-size-h3: ${20 / 16}rem;
-  --radius-size: 26px;
+  --radius-size-sm: 5px;
+  --radius-size-button: 26px;
   --radius-size-xl: 35px;
   --gameboard-4-layout: 1fr 1fr 1fr 1fr;
-  --gameboard-4-pieces-size: 118px;
-  --gameboard-4-gap: 20px;
+  --gameboard-4-pieces-size: 72px;
+  --gameboard-4-gap: 12px;
   --gameboard-6-layout: 1fr 1fr 1fr 1fr 1fr 1fr;
-  --gameboard-6-pieces-size: 82px;
-  --gameboard-6-gap: 16px;
+  --gameboard-6-pieces-size: 46px;
+  --gameboard-6-gap: 9px;
+
+  @media ${QUERIES.tabletAndUp} {
+    --radius-size-sm: 10px;
+    --gameboard-4-pieces-size: 118px;
+    --gameboard-6-pieces-size: 82px;
+    --gameboard-4-gap: 20px;
+    --gameboard-6-gap: 16px;
+  }
 }
 `;
 
