@@ -31,7 +31,7 @@ const GamePiece = ({ piece, config, onFlipPiece }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
           >
-            <PieceIcon name={piece.name} size={"auto"} />
+            <PieceIcon name={piece.name} size={"100%"} />
           </motion.span>
         ) : null}
       </AnimatePresence>
