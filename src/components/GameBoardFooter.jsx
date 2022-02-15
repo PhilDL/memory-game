@@ -24,7 +24,7 @@ const GameBoardFooter = ({
   return (
     <Footer>
       {playersScore.map((player) => {
-        let selected = currentPlayerId == player.id;
+        let selected = currentPlayerId === player.id;
         return (
           <InfoBox key={`player-score-${player.id}`} selected={selected}>
             <InfoLabel selected={selected}>

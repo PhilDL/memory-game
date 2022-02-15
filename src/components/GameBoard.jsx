@@ -15,6 +15,9 @@ const GameBoard = () => {
   const [showEndScreen, setShowEndscreen] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   let started = gameCtx.gameState.gameState.status === Started;
+  const piecesFlipped = gameCtx.gameState.gameState.piecesFlipped;
+  const dispatchGameState = gameCtx.dispatchGameState;
+  const gameBoard = gameCtx.gameState.gameBoard;
 
   useEffect(() => {
     if (gameCtx.gameState.gameState.status !== Ended) {
@@ -24,18 +27,19 @@ const GameBoard = () => {
   }, [gameCtx.gameState.gameState.status]);
 
   useEffect(() => {
-    if (gameCtx.gameState.gameState.piecesFlipped <= 0) {
+    if (piecesFlipped <= 0) {
       return;
     }
     const checkGameStateTimeoutIdentifier = setTimeout(() => {
-      gameCtx.dispatchGameState({
+      console.log("check game state");
+      dispatchGameState({
         type: "CHECK_GAME_STATE",
       });
     }, 200);
     return () => {
       clearTimeout(checkGameStateTimeoutIdentifier);
     };
-  }, [gameCtx.gameState.gameState.piecesFlipped, gameCtx.dispatchGameState]);
+  }, [piecesFlipped, dispatchGameState]);
 
   useEffect(() => {
     let interval = null;
@@ -49,13 +53,11 @@ const GameBoard = () => {
     return () => clearInterval(interval);
   }, [started, seconds]);
 
-  const gameBoard = gameCtx.gameState.gameBoard;
-
   const flipPieceHandler = (piece) => {
     if (piece.flipped || piece.matched) {
       return;
     }
-    gameCtx.dispatchGameState({
+    dispatchGameState({
       type: "FLIP_PIECE",
       payload: { id: piece.id },
     });
@@ -64,7 +66,7 @@ const GameBoard = () => {
   const restartGameHandler = () => {
     setShowEndscreen(false);
     setShowMobileMenu(false);
-    gameCtx.dispatchGameState({
+    dispatchGameState({
       type: "START",
       payload: gameCtx.gameState.config,
     });
@@ -74,7 +76,7 @@ const GameBoard = () => {
   const newGameHandler = () => {
     setShowEndscreen(false);
     setShowMobileMenu(false);
-    gameCtx.dispatchGameState({
+    dispatchGameState({
       type: "END_GAME",
     });
   };
@@ -82,7 +84,7 @@ const GameBoard = () => {
   const dismissEndScreen = () => {
     setShowEndscreen(false);
     setShowMobileMenu(false);
-    gameCtx.dispatchGameState({
+    dispatchGameState({
       type: "END_GAME",
     });
   };

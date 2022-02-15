@@ -2,7 +2,6 @@ import styled from "styled-components/macro";
 import { PIECES } from "../gameData";
 import UnstyledButton from "./ui/UnstyledButton";
 import { motion, AnimatePresence } from "framer-motion";
-import { BREAKPOINTS } from "../constants";
 
 const GamePiece = ({ piece, config, onFlipPiece }) => {
   const { flipped, matched, id } = piece;

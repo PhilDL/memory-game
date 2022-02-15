@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components/macro";
-import GameContext from "../store/game-context";
 import { useFocusRing } from "@react-aria/focus";
 import { useRadioGroup, useRadio } from "@react-aria/radio";
 import { useRadioGroupState } from "@react-stately/radio";
@@ -43,7 +42,6 @@ function Radio(props) {
 }
 
 const GameSettingsPanel = ({ onGameStartHandler }) => {
-  const gameCtx = useContext(GameContext);
   const [theme, setTheme] = useState("numbers");
   const [nbOfPlayers, setNbOfPlayers] = useState(1);
   const [gridSize, setGridSize] = useState(4);
