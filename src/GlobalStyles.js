@@ -100,6 +100,7 @@ html, body, #root {
   --gameboard-6-layout: 1fr 1fr 1fr 1fr 1fr 1fr;
   --gameboard-6-pieces-size: 46px;
   --gameboard-6-gap: 9px;
+  --triangle-shape-size: 8px;
 
   @media ${QUERIES.tabletAndUp} {
     --radius-size-sm: 10px;
@@ -108,6 +109,7 @@ html, body, #root {
     --gameboard-6-pieces-size: 82px;
     --gameboard-4-gap: 20px;
     --gameboard-6-gap: 16px;
+    --triangle-shape-size:19px;
   }
 }
 `;

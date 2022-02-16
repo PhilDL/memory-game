@@ -32,6 +32,7 @@ const GameBoardFooter = ({
               {player.id}
             </InfoLabel>
             <InfoValue>{player.matchedPairs}</InfoValue>
+            {selected && <CurrentTurn>Current turn</CurrentTurn>}
           </InfoBox>
         );
       })}
@@ -47,6 +48,7 @@ const Footer = styled.footer`
   }
   justify-content: center;
   flex: 1;
+  padding-bottom: 3em;
 `;
 
 const InfoBox = styled.div`
@@ -68,6 +70,22 @@ const InfoBox = styled.div`
   }
   height: min-content;
   align-items: center;
+  position: relative;
+  ${(p) =>
+    p.selected &&
+    `
+  ::after {
+    content: "";
+    position: absolute;
+    left: calc(50% - var(--triangle-shape-size));
+    bottom: 100%;
+    width: 0;
+    height: 0;
+    border-left: var(--triangle-shape-size) solid transparent;
+    border-right: var(--triangle-shape-size) solid transparent;
+    border-bottom: var(--triangle-shape-size) solid var(--color-primary);
+    clear: both;
+  }`}
 `;
 
 const InfoLabel = styled.span`
@@ -86,6 +104,22 @@ const PlayerSpanDesktop = styled.span`
   @media ${QUERIES.tabletAndUp} {
     display: inline;
   }
+`;
+
+const CurrentTurn = styled.div`
+  display: none;
+  @media ${QUERIES.tabletAndUp} {
+    display: revert;
+  }
+  color: var(--color-gray-blue-900);
+  position: absolute;
+  bottom: -23px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 13px;
+  text-align: center;
+  width: 100%;
+  left: 0;
 `;
 
 export default GameBoardFooter;
