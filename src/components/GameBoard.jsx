@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import GamePiece from "./GamePiece";
 import GameBoardFooter from "./GameBoardFooter";
 import GameContext, { Started, Ended } from "../store/game-context";
@@ -53,15 +53,18 @@ const GameBoard = () => {
     return () => clearInterval(interval);
   }, [started, seconds]);
 
-  const flipPieceHandler = (piece) => {
-    if (piece.flipped || piece.matched) {
-      return;
-    }
-    dispatchGameState({
-      type: "FLIP_PIECE",
-      payload: { id: piece.id },
-    });
-  };
+  const flipPieceHandler = useCallback(
+    (piece) => {
+      if (piece.flipped || piece.matched) {
+        return;
+      }
+      dispatchGameState({
+        type: "FLIP_PIECE",
+        payload: { id: piece.id },
+      });
+    },
+    [dispatchGameState]
+  );
 
   const restartGameHandler = () => {
     setShowEndscreen(false);
@@ -89,7 +92,7 @@ const GameBoard = () => {
     });
   };
 
-  let timeElapsed = new Date(1000 * seconds).toISOString().substr(11, 8);
+  let timeElapsed = new Date(1000 * seconds).toISOString().substr(14, 5);
 
   return (
     <Wrapper>

@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components/macro";
 import { PIECES } from "../gameData";
 import UnstyledButton from "./ui/UnstyledButton";
@@ -39,6 +40,11 @@ const GamePiece = ({ piece, config, onFlipPiece }) => {
   );
 };
 
+const PieceIconNumber = styled.span`
+  font-size: ${(p) => (p.gridSize === 4 ? "2.5rem" : "2rem")};
+  font-weight: 700;
+`;
+
 const ButtonWrapper = styled(UnstyledButton)`
   width: var(--gameboard-${(p) => p.gridSize}-pieces-size);
   height: var(--gameboard-${(p) => p.gridSize}-pieces-size);
@@ -59,8 +65,4 @@ const ButtonWrapper = styled(UnstyledButton)`
   }
 `;
 
-const PieceIconNumber = styled.span`
-  font-size: ${(p) => (p.gridSize === 4 ? "2.5rem" : "2rem")};
-  font-weight: 700;
-`;
-export default GamePiece;
+export default React.memo(GamePiece);
