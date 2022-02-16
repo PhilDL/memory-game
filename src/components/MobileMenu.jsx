@@ -37,14 +37,14 @@ const Overlay = styled(DialogOverlay)`
 
 const Content = styled(DialogContent)`
   background: var(--color-white);
-  border-radius: var(--radius-size-button);
-  padding: 24px;
+  border-radius: var(--radius-size-xl);
+  width: 100%;
+  max-width: 327px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding: 24px;
   gap: 16px;
-  width: 100%;
-  max-width: 327px;
 `;
 
 const Main = styled.main`

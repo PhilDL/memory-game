@@ -113,7 +113,6 @@ const Main = styled.main`
 const GameTitle = styled.h1`
   font-size: var(--font-size-h1);
   text-align: center;
-  font-weight: 700;
   color: white;
 `;
 
@@ -133,7 +132,6 @@ const GameSettingsForm = styled.form`
 
 const SettingGroup = styled.fieldset``;
 const SettingLabel = styled.legend`
-  font-weight: 700;
   display: block;
   color: var(--color-gray-blue-300);
   margin-bottom: 11px;
@@ -141,14 +139,12 @@ const SettingLabel = styled.legend`
 
 const StartGameButton = styled(PrimaryButton)`
   height: 50px;
-  font-weight: 700;
   font-size: 1.2rem;
   margin-top: 8px;
 `;
 
 const SettingOptionLabel = styled.label`
   display: inline-block;
-  font-weight: 700;
   color: var(--color-white);
   background-color: var(
     --color-gray-blue-${(p) => (p.isSelected ? "900" : "300")}

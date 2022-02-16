@@ -174,7 +174,6 @@ const Logo = styled.h1`
   margin-right: auto;
   color: var(--color-gray-blue-900);
   font-size: var(--font-size-h1);
-  font-weight: 700;
 `;
 const Navigation = styled.nav`
   display: flex;

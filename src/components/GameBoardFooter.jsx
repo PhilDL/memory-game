@@ -56,7 +56,6 @@ const InfoBox = styled.div`
   color: var(
     ${(p) => (p.selected ? "--color-white" : "--color-gray-blue-900")}
   );
-  font-weight: 700;
   border-radius: var(--radius-size-sm);
   padding: 12px 21px;
   display: flex;

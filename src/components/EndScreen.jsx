@@ -93,10 +93,9 @@ const Overlay = styled(DialogOverlay)`
 
 const Content = styled(DialogContent)`
   background: var(--color-white);
-  border-radius: var(--radius-size-button);
+  border-radius: var(--radius-size-xl);
   width: 100%;
   max-width: 654px;
-  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -114,7 +113,7 @@ const Content = styled(DialogContent)`
       width: 0px;
     }
     100% {
-      width: 300px;
+      width: 100%;
     }
   }
 `;
@@ -143,11 +142,9 @@ const Footer = styled.footer`
 const Title = styled.h1`
   font-size: var(--font-size-h1);
   color: var(--color-gray-blue-700);
-  font-weight: 700;
 `;
 
 const SubTitle = styled.p`
-  font-weight: 700;
   color: var(--color-gray-blue-300);
 `;
 
@@ -156,7 +153,6 @@ const InfoBox = styled.div`
     ${(p) => (p.winner ? "--color-gray-blue-700" : "--color-gray-100")}
   );
   color: var(${(p) => (p.winner ? "--color-white" : "--color-gray-blue-700")});
-  font-weight: 700;
   border-radius: var(--radius-size-sm);
   padding: 11px 16px;
   @media ${QUERIES.tabletAndUp} {

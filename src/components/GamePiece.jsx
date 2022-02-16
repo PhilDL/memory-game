@@ -41,8 +41,7 @@ const GamePiece = ({ piece, config, onFlipPiece }) => {
 };
 
 const PieceIconNumber = styled.span`
-  font-size: ${(p) => (p.gridSize === 4 ? "2.5rem" : "2rem")};
-  font-weight: 700;
+  font-size: ${(p) => (p.gridSize === 4 ? "2.2rem" : "1.7rem")};
 `;
 
 const ButtonWrapper = styled(UnstyledButton)`

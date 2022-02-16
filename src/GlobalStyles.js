@@ -23,6 +23,7 @@ time, mark, audio, video {
 	border: 0;
   font-size: 100%;
 	vertical-align: baseline;
+  font-weight: 700;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -92,7 +93,7 @@ html, body, #root {
   --font-size-h3: ${20 / 16}rem;
   --radius-size-sm: 5px;
   --radius-size-button: 26px;
-  --radius-size-xl: 35px;
+  --radius-size-xl: 10px;
   --gameboard-4-layout: 1fr 1fr 1fr 1fr;
   --gameboard-4-pieces-size: 72px;
   --gameboard-4-gap: 12px;
@@ -102,6 +103,7 @@ html, body, #root {
 
   @media ${QUERIES.tabletAndUp} {
     --radius-size-sm: 10px;
+    --radius-size-xl: 35px;
     --gameboard-4-pieces-size: 118px;
     --gameboard-6-pieces-size: 82px;
     --gameboard-4-gap: 20px;
