@@ -57,6 +57,15 @@ const ButtonWrapper = styled(UnstyledButton)`
       : p.flipped
       ? "var(--color-primary)"
       : "var(--color-gray-blue-900)"};
+  &:hover {
+    background-color: ${(p) =>
+      p.matched
+        ? "var(--color-gray-blue-100)"
+        : p.flipped
+        ? "var(--color-primary)"
+        : "var(--color-gray-blue-500)"};
+  }
+
   color: var(--color-white);
   padding: ${(p) => (p.theme === "icons" ? "30%" : null)};
   & svg {

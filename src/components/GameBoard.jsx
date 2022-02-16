@@ -149,9 +149,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 32px;
   height: 100%;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-bottom: 24px;
+  padding: 24px;
 `;
 
 const Main = styled.main`
@@ -173,7 +171,7 @@ const Header = styled.header`
 const Logo = styled.h1`
   margin-right: auto;
   color: var(--color-gray-blue-900);
-  font-size: var(--font-size-h1);
+  font-size: var(--font-size-nav-logo);
 `;
 const Navigation = styled.nav`
   display: flex;

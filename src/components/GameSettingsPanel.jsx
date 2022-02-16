@@ -100,10 +100,11 @@ const GameSettingsPanel = ({ onGameStartHandler }) => {
 
 const Main = styled.main`
   max-width: 702px;
+  height: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   gap: 45px;
   @media ${QUERIES.tabletAndUp} {
     gap: 78px;
@@ -147,7 +148,7 @@ const SettingOptionLabel = styled.label`
   display: inline-block;
   color: var(--color-white);
   background-color: var(
-    --color-gray-blue-${(p) => (p.isSelected ? "900" : "300")}
+    --color-gray-blue-${(p) => (p.isSelected ? "900" : "100")}
   );
   padding: 10px;
   flex: 1;

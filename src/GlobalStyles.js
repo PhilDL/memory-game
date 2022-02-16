@@ -88,9 +88,11 @@ html, body, #root {
   --color-gray-blue-500: hsl(205, 37%, 55%);
   --color-gray-blue-700: hsl(205, 30%, 27%);
   --color-gray-blue-900: hsl(206, 45%, 15%);
-  --font-size-h1: ${48 / 16}rem;
+  --font-size-nav-logo: ${24 / 16}rem;
+  --font-size-h1: ${32 / 16}rem;
   --font-size-h2: ${32 / 16}rem;
   --font-size-h3: ${20 / 16}rem;
+  --button-padding: 8px 16px;
   --radius-size-sm: 5px;
   --radius-size-button: 26px;
   --radius-size-xl: 10px;
@@ -103,8 +105,11 @@ html, body, #root {
   --triangle-shape-size: 8px;
 
   @media ${QUERIES.tabletAndUp} {
+    --font-size-nav-logo: ${40 / 16}rem;
+    --font-size-h1: ${48 / 16}rem;
+    --button-padding: 10px 24px;
     --radius-size-sm: 10px;
-    --radius-size-xl: 35px;
+    --radius-size-xl: 20px;
     --gameboard-4-pieces-size: 118px;
     --gameboard-6-pieces-size: 82px;
     --gameboard-4-gap: 20px;

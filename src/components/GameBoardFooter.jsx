@@ -113,7 +113,7 @@ const CurrentTurn = styled.div`
   }
   color: var(--color-gray-blue-900);
   position: absolute;
-  bottom: -23px;
+  bottom: -38px;
   text-transform: uppercase;
   letter-spacing: 5px;
   font-size: 13px;
