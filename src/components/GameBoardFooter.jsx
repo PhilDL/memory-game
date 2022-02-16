@@ -65,7 +65,7 @@ const InfoBox = styled.div`
   justify-content: space-between;
   flex: 1;
   @media ${QUERIES.tabletAndUp} {
-    flex-basis: 255px;
+    max-width: 255px;
     flex-direction: row;
   }
   height: min-content;
