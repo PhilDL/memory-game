@@ -45,10 +45,10 @@ const Footer = styled.footer`
   gap: 24px;
   @media ${QUERIES.tabletAndUp} {
     gap: 30px;
+    padding-bottom: 3em;
   }
   justify-content: center;
   flex: 1;
-  padding-bottom: 3em;
 `;
 
 const InfoBox = styled.div`
