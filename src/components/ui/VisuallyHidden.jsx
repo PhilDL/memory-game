@@ -33,7 +33,7 @@ const VisuallyHidden = ({ children, ...delegated }) => {
   return <Wrapper {...delegated}>{children}</Wrapper>;
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.span`
   position: absolute;
   overflow: hidden;
   clip: rect(0 0 0 0);

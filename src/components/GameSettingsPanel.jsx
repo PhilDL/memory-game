@@ -167,7 +167,7 @@ const SettingOptionLabel = styled.label`
     p.isFocusVisible ? "2px solid var(--color-primary)" : "none"};
 `;
 
-const SettingOptionValues = styled.div`
+const SettingOptionValues = styled.span`
   display: flex;
   justify-content: space-between;
   gap: 11px;
